@@ -1,0 +1,42 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from SPClassService WSDL service -->
+
+  <service name="SPClass" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://rmi"/>
+      <parameter name="wsdlServiceElement" value="SPClassService"/>
+      <parameter name="schemaQualified" value="http://rmi"/>
+      <parameter name="wsdlServicePort" value="SPClass"/>
+      <parameter name="className" value="rmi.SPClassSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="SPClass"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getMessage" qname="operNS:getMessage" xmlns:operNS="http://rmi" returnQName="retNS:getMessageReturn" xmlns:retNS="http://rmi" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:url" xmlns:pns="http://rmi" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="unsubscribe" qname="operNS:unsubscribe" xmlns:operNS="http://rmi" returnQName="retNS:unsubscribeReturn" xmlns:retNS="http://rmi" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:pseudo" xmlns:pns="http://rmi" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:url" xmlns:pns="http://rmi" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="subscribe" qname="operNS:subscribe" xmlns:operNS="http://rmi" returnQName="retNS:subscribeReturn" xmlns:retNS="http://rmi" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:pseudo" xmlns:pns="http://rmi" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:salon" xmlns:pns="http://rmi" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="postMessage" qname="operNS:postMessage" xmlns:operNS="http://rmi" returnQName="retNS:postMessageReturn" xmlns:retNS="http://rmi" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:pseudo" xmlns:pns="http://rmi" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:mesage" xmlns:pns="http://rmi" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:url" xmlns:pns="http://rmi" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="unsubscribe subscribe postMessage getMessage"/>
+
+  </service>
+</deployment>
